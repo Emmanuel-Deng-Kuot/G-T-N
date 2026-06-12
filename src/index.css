@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.font-heading {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.font-body {
+  font-family: "Poppins", sans-serif;
+}
+
+.font-nav {
+  font-family: "Inter", sans-serif;
+}
