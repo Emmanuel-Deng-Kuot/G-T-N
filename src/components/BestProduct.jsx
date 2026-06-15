@@ -1,3 +1,6 @@
+import keyboardImage from "../assets/images/keyboard.png";
+import mouseImage from "../assets/images/mouse.png";
+
 const products = [
   {
     id: 1,
@@ -6,7 +9,7 @@ const products = [
     price: "$500",
     oldPrice: "$800",
     discount: "20% off",
-    image: "/keyboard.png",
+    image: keyboardImage,
     alt: "Apollo 11 Keyboard",
   },
   {
@@ -16,7 +19,7 @@ const products = [
     price: "$500",
     oldPrice: "$800",
     discount: "20% off",
-    image: "/mouse.png",
+    image: mouseImage,
     alt: "Logitech Mouse",
   },
 ];
@@ -55,7 +58,7 @@ const BestProduct = () => {
             <h2 className="text-3xl font-bold md:text-4xl  text-slate-900 leading-tight">
               Our best products of the month
             </h2>
-            <p className="text-sm lg:text-xl text-slate-400 font-nav  leading-relaxed">
+            <p className="max-w-3xl text-sm lg:text-xl text-slate-500 font-nav leading-8 lg:leading-9 text-justify">
               As new products enter the market, consumers are presented with more choices than ever before.
                Understanding the features, benefits, and value of each product can help users make informed
                 decisions that best suit their personal and professional needs.

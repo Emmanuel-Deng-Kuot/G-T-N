@@ -14,7 +14,7 @@ import headphones4 from "../assets/images/headphones-4.png";
 export const products = [
   {
     id: 1,
-    category: "Keyboard and mouse",
+    category: "Mouse",
     name: "Logitech MX Master 3",
     price: "$500",
     oldPrice: "$800",
@@ -27,7 +27,7 @@ export const products = [
   },
   {
     id: 2,
-    category: "Keyboard and mouse",
+    category: "Mouse",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -40,7 +40,7 @@ export const products = [
   },
   {
     id: 3,
-    category: "Keyboard and mouse",
+    category: "Mouse",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -53,7 +53,7 @@ export const products = [
   },
   {
     id: 4,
-    category: "Keyboard and mouse",
+    category: "Keyboard",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -66,7 +66,7 @@ export const products = [
   },
   {
     id: 5,
-    category: "Keyboard and mouse",
+    category: "Headphone",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -79,7 +79,7 @@ export const products = [
   },
   {
     id: 6,
-    category: "Keyboard and mouse",
+    category: "Headphone",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -92,7 +92,7 @@ export const products = [
   },
   {
     id: 7,
-    category: "Keyboard and mouse",
+    category: "Headphone",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -105,7 +105,7 @@ export const products = [
   },
   {
     id: 8,
-    category: "Keyboard and mouse",
+    category: "Headphone",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -118,7 +118,7 @@ export const products = [
   },
   {
     id: 9,
-    category: "Keyboard and mouse",
+    category: "Keyboard",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -131,7 +131,7 @@ export const products = [
   },
   {
     id: 10,
-    category: "Keyboard and mouse",
+    category: "Keyboard",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -144,7 +144,7 @@ export const products = [
   },
   {
     id: 11,
-    category: "Keyboard and mouse",
+    category: "Keyboard",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",
@@ -157,7 +157,7 @@ export const products = [
   },
   {
     id: 12,
-    category: "Keyboard and mouse",
+    category: "Keyboard",
     name: "Apollo 11 with gatheron yellow switch pre-lubed",
     price: "$500",
     oldPrice: "$800",

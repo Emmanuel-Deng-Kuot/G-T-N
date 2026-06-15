@@ -1,15 +1,19 @@
+import tokopediaLogo from "../assets/images/tokopedia-logo.png";
+import shopeeLogo from "../assets/images/shopee-logo.png";
+import whatsappLogo from "../assets/images/whatsapp-logo.png";
+
 const platforms = [
   {
     name: "Tokopedia",
-    image: "src/assets/images/tokopedia-logo.png",
+    image: tokopediaLogo,
   },
   {
     name: "Shopee",
-    image: "src/assets/images/shopee-logo.png",
+    image: shopeeLogo,
   },
   {
     name: "Whatsapp",
-    image: "src/assets/images/whatsapp-logo.png",
+    image: whatsappLogo,
   },
 ];
 

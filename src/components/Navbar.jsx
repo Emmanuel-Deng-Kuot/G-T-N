@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/useCart";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -184,7 +184,7 @@ const Navbar = () => {
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link to="/" onClick={closeMobileUI}>
             <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
-              GI<span className="text-indigo-600">T</span>IN
+              G\<span className="text-indigo-600">T</span>\N
             </span>
           </Link>
         </div>

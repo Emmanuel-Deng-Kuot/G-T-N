@@ -48,7 +48,7 @@ const ProductCard = ({ product, variant, onNavigate }) => (
 
 const ITEMS_PER_PAGE = 12;
 
-const categories = ["All", "Keyboard and mouse", "Headphones"];
+const categories = ["All", "Keyboard", "Mouse", "Headphone"];
 const sortOptions = ["Newest first", "Price: Low to High", "Price: High to Low"];
 const priceOptions = ["All", "$0 - $100", "$100 - $200", "$200 - $400", "$400+"];
 
