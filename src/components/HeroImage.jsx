@@ -5,7 +5,7 @@ const HeroImage = () => {
       <div className="absolute left-[clamp(-140px,-5vw,-40px)] top-1/2 z-0 h-[clamp(280px,90vw,620px)] w-[clamp(240px,80vw,560px)] -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,#b8bbee_0%,#cfd1f4_30%,#e8e9fb_58%,transparent_75%)]" />
 
       {/* Hero card */}
-      <div className="relative z-10 h-[clamp(240px,62vw,540px)] w-[clamp(180px,52vw,460px)] shrink-0 overflow-hidden rounded-[clamp(14px,3vw,28px)]">
+      <div className="relative z-10 h-[clamp(240px,62vw,540px)] w-[clamp(180px,52vw,460px)] shrink-0 overflow-hidden rounded-2xl bg-white/80 shadow-lg shadow-indigo-900/20 backdrop-blur-sm">
         {/* Background */}
         <div className="absolute inset-0 bg-[linear-gradient(145deg,#7B82E8_0%,#5058C8_25%,#3A3F9E_55%,#252870_80%,#1A1B52_100%)]" />
 
@@ -16,7 +16,7 @@ const HeroImage = () => {
         <img
           src="src/assets/images/hero-person.png"
           alt="Person with headphones browsing gadgets"
-          className="absolute bottom-[clamp(-40px,-3vw,-15px)] left-1/2 z-20 h-[clamp(270px,74vw,730px)] -translate-x-1/2 object-contain"
+          className="absolute bottom-[180] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain"
         />
       </div>
 

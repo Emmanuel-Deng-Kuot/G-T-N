@@ -127,7 +127,7 @@ const ProductGrid = ({ variant = "page" }) => {
       />
 
       {anyDropdownOpen && (
-        <div className="fixed inset-0 z-[5]" onClick={closeAllDropdowns} aria-hidden="true" />
+        <div className="fixed inset-0 z-5" onClick={closeAllDropdowns} aria-hidden="true" />
       )}
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
