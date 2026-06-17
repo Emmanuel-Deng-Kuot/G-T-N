@@ -19,7 +19,7 @@ const HeroImage = () => {
         <img 
           src={HeroPerson} 
           alt="person with headphones browsing gadgets" 
-          className="absolute bottom-[-180px] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain" 
+          className="absolute lg:bottom-[-180px] bottom-[-40px] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain" 
         />
       
       </div>
