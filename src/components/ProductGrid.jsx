@@ -48,14 +48,15 @@ const ProductCard = ({ product, variant, onNavigate }) => (
 
 const ITEMS_PER_PAGE = 12;
 
-const categories = ["All", "Keyboard", "Mouse", "Headphone"];
+const ALL_CATEGORY = "All";
+const categories = [ALL_CATEGORY, ...new Set(products.map((product) => product.category))];
 const sortOptions = ["Newest first", "Price: Low to High", "Price: High to Low"];
 const priceOptions = ["All", "$0 - $100", "$100 - $200", "$200 - $400", "$400+"];
 
 const ProductGrid = ({ variant = "page" }) => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState(ALL_CATEGORY);
   const [sortBy, setSortBy] = useState("Newest first");
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -66,7 +67,7 @@ const ProductGrid = ({ variant = "page" }) => {
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
-      const matchCategory = category === "All" || p.category === category;
+      const matchCategory = category === ALL_CATEGORY || p.category === category;
       const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
       const price = parsePrice(p.price);
       const matchPrice = (() => {
@@ -114,7 +115,7 @@ const ProductGrid = ({ variant = "page" }) => {
   const anyDropdownOpen = showCategoryDropdown || showSortDropdown || showPriceDropdown;
 
   return (
-    <section className="relative w-full bg-white py-16 overflow-hidden">
+    <section className="relative w-full bg-white py-2 overflow-hidden">
 
       <div
         className="absolute pointer-events-none z-0"
@@ -126,7 +127,7 @@ const ProductGrid = ({ variant = "page" }) => {
       />
 
       {anyDropdownOpen && (
-        <div className="fixed inset-0 z-20" onClick={closeAllDropdowns} aria-hidden="true" />
+        <div className="fixed inset-0 z-[5]" onClick={closeAllDropdowns} aria-hidden="true" />
       )}
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
@@ -360,7 +361,7 @@ const ProductGrid = ({ variant = "page" }) => {
             <h3 className="text-xl font-semibold text-slate-800 mb-2">No products found</h3>
             <p className="text-slate-500 mb-6">Try adjusting your search or filter criteria</p>
             <button
-              onClick={() => { setSearch(""); setCategory("All"); setPriceRange("All"); setSortBy("Newest first"); setCurrentPage(1); }}
+              onClick={() => { setSearch(""); setCategory(ALL_CATEGORY); setPriceRange("All"); setSortBy("Newest first"); setCurrentPage(1); }}
               className="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors"
             >
               Clear all filters

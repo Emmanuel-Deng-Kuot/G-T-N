@@ -4,11 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { products } from "../data/productsData";
+import useAnimations from "../hooks/useAnimations";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const containerRef = useAnimations();
 
   const product = products.find((p) => p.id === parseInt(id));
 
@@ -24,7 +26,7 @@ const ProductDetail = () => {
   );
 
   return (
-    <div key={id} className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div ref={containerRef} key={id} className="min-h-screen bg-white font-sans overflow-x-hidden">
       <Navbar />
 
       <section className="max-w-7xl mx-auto px-6 lg:px-10 pt-28 pb-20">
@@ -35,7 +37,7 @@ const ProductDetail = () => {
 
             {/* Main image */}
             <div
-              className="w-full rounded-3xl flex items-center justify-center overflow-hidden bg-[#f5f5f7]"
+              className="w-full rounded-3xl flex items-center justify-center overflow-hidden bg-[#f5f5f7] zoom-in"
               style={{ height: "340px", padding: "32px" }}
             >
               <img
@@ -51,7 +53,7 @@ const ProductDetail = () => {
                 <button
                   key={i}
                   onClick={() => setSelectedImage(i)}
-                  className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all duration-200 ${
+                  className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all duration-200 zoom-in ${
                     selectedImage === i
                       ? "border-2 border-indigo-900"
                       : "border-2 border-transparent"
@@ -68,21 +70,21 @@ const ProductDetail = () => {
           {/* Right: Details */}
           <div className="flex flex-col gap-6 flex-1 pt-2">
 
-            <p className="text-sm text-slate-400 capitalize">{product.category}</p>
+            <p className="text-sm text-slate-400 capitalize zoom-in">{product.category}</p>
 
-            <h1 className="text-xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+            <h1 className="text-xl lg:text-4xl font-extrabold text-slate-900 leading-tight zoom-in">
               {product.name}
             </h1>
 
-            <div className="flex items-center gap-3">
-              <span className="text-2xl lg:text-3xl font-extrabold text-slate-900">{product.price}</span>
-              <span className="text-xl text-slate-400 line-through">{product.oldPrice}</span>
+            <div className="flex items-center gap-3 zoom-in">
+              <span className="text-2xl lg:text-3xl font-extrabold text-slate-900">${product.price}</span>
+              <span className="text-xl text-slate-400 line-through">${product.oldPrice}</span>
             </div>
 
             {/* Color */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 zoom-in">
               <p className="text-sm font-semibold text-slate-800">Color</p>
-              <div className="flex  items-center gap-2">
+              <div className="flex items-center gap-2">
                 {product.colors.map((color, i) => (
                   <button
                     key={i}
@@ -100,7 +102,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Variant */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 zoom-in">
               <p className="text-sm font-semibold text-slate-800">Variant</p>
               <div className="flex items-center gap-2 flex-wrap">
                 {product.variants.map((variant, i) => (
@@ -120,7 +122,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Quantity + Add to cart */}
-            <div className="flex flex-row sm:flex-row items-stretch sm:items-center gap-3 mt-2">
+            <div className="flex flex-row sm:flex-row items-stretch sm:items-center gap-3 mt-2 zoom-in">
 
               <div className="flex items-center gap-3 border border-slate-300 rounded-full px-4 py-2.5 w-fit">
                 <button
@@ -158,28 +160,28 @@ const ProductDetail = () => {
             </div>
 
             {/* Checkout platforms */}
-          <div className="flex flex-col gap-3 mt-2">
-            <p className="text-sm text-slate-400">Or checkout on :</p>
-            <div className="flex flex-row gap-2">
-              {["Tokopedia", "Shopee", "Whatsapp"].map((platform) => (
-                <a
-                  key={platform}
-                  href="#"
-                  className="flex-1 flex items-center justify-between gap-1 border border-slate-300 hover:border-slate-400 rounded-full px-3 py-2.5 transition-all duration-200 group min-w-0"
-                >
-                  <span className="text-xs font-nav font-medium text-slate-700 truncate">{platform}</span>
-                  <svg
-                    className="w-3 h-3 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+            <div className="flex flex-col gap-3 mt-2 zoom-in">
+              <p className="text-sm text-slate-400">Or checkout on :</p>
+              <div className="flex flex-row gap-2">
+                {["Tokopedia", "Shopee", "Whatsapp"].map((platform) => (
+                  <a
+                    key={platform}
+                    href="#"
+                    className="flex-1 flex items-center justify-between gap-1 border border-slate-300 hover:border-slate-400 rounded-full px-3 py-2.5 transition-all duration-200 group min-w-0"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
-                  </svg>
-                </a>
-              ))}
+                    <span className="text-xs font-nav font-medium text-slate-700 truncate">{platform}</span>
+                    <svg
+                      className="w-3 h-3 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </section>
@@ -195,15 +197,15 @@ const ProductDetail = () => {
           `,
         }}
       >
-        <div className="absolute pointer-events-none" style={{ width: "380px", height: "380px", border: "1px solid rgba(140,130,200,0.2)", borderRadius: "50%", bottom: "-80px", left: "-80px" }} />
-        <div className="absolute pointer-events-none" style={{ width: "320px", height: "320px", border: "1px solid rgba(140,130,200,0.2)", borderRadius: "50%", top: "-60px", right: "-60px" }} />
+        <div className="absolute pointer-events-none zoom-in" style={{ width: "380px", height: "380px", border: "1px solid rgba(140,130,200,0.2)", borderRadius: "50%", bottom: "-80px", left: "-80px" }} />
+        <div className="absolute pointer-events-none zoom-in" style={{ width: "320px", height: "320px", border: "1px solid rgba(140,130,200,0.2)", borderRadius: "50%", top: "-60px", right: "-60px" }} />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 zoom-in">
               <h2 className="text-2xl font-extrabold text-slate-900">Description</h2>
-              <p className="text-sm lg:text-base text-slate-600 leading-relaxed">
+              <p className="text-sm lg:text-2xl text-slate-600 leading-relaxed">
                 Experience premium quality with our latest collection.
                 Each product is crafted to deliver exceptional performance and durability.
                 Whether you're a professional or enthusiast, our devices offer the perfect blend of style and functionality.
@@ -212,20 +214,20 @@ const ProductDetail = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 zoom-in">
               <h2 className="text-2xl font-extrabold text-slate-900">Review</h2>
               {[
                 { name: "David Russel", rating: 3, avatar: "DR", review: "Great product overall, though the setup process was a bit complicated. The build quality is excellent and it works perfectly once configured." },
                 { name: "Claire Maxwell", rating: 4, avatar: "CM", review: "Really impressed with the performance and design. It's been a solid addition to my workspace. Highly recommended!" },
                 { name: "Darek O'Connor", rating: 5, avatar: "DO", review: "Absolutely love this product! Best investment I've made this year. The quality is outstanding and it arrived earlier than expected." },
               ].map((reviewer, i) => (
-                <div key={i} className="flex gap-4">
+                <div key={i} className="flex gap-4 zoom-in">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full shrink-0 flex items-center justify-center text-sm font-bold text-white" style={{ background: "#9d97df" }}>
                     {reviewer.avatar}
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-slate-900">{reviewer.name}</span>
+                      <span className="text-sm lg:text-lg font-bold text-slate-900">{reviewer.name}</span>
                       <div className="flex items-center gap-0.5">
                         {Array.from({ length: 5 }, (_, s) => (
                           <svg key={s} className="w-3.5 h-3.5" fill={s < reviewer.rating ? "#F59E0B" : "none"} stroke="#F59E0B" viewBox="0 0 24 24">
@@ -234,11 +236,11 @@ const ProductDetail = () => {
                         ))}
                       </div>
                     </div>
-                    <p className="text-xs text-slate-500 leading-relaxed">{reviewer.review}</p>
+                    <p className="text-xs lg:text-xl text-slate-500 leading-relaxed">{reviewer.review}</p>
                   </div>
                 </div>
               ))}
-              <div className="flex justify-end mt-2">
+              <div className="flex justify-end mt-2 zoom-in">
                 <button className="flex items-center gap-2 bg-[#2D2B6B] hover:bg-indigo-900 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:-translate-y-px shadow-lg shadow-indigo-900/20">
                   View All
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,25 +256,25 @@ const ProductDetail = () => {
 
       {/* Related Products */}
       <section className="relative w-full bg-white py-16 overflow-hidden">
-        <div className="absolute pointer-events-none z-0" style={{ width: "500px", height: "500px", borderRadius: "50%", bottom: "-150px", right: "-150px", background: "radial-gradient(circle at center, #9d97df 0%, #b8b4e8 20%, #d4d2f2 45%, transparent 70%)" }} />
+        <div className="absolute pointer-events-none z-0 zoom-in" style={{ width: "500px", height: "500px", borderRadius: "50%", bottom: "-150px", right: "-150px", background: "radial-gradient(circle at center, #9d97df 0%, #b8b4e8 20%, #d4d2f2 45%, transparent 70%)" }} />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
-          <h2 className="text-2xl font-semibold text-slate-900 text-center mb-10">Related product</h2>
+          <h2 className="text-2xl font-semibold text-slate-900 text-center mb-10 zoom-in">Related product</h2>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
             {products
               .filter((p) => p.id !== product.id)
               .slice(0, 4)
-              .map((related) => (
+              .map((related, index) => (
                 <div
                   key={related.id}
-                  className="flex flex-col cursor-pointer group"
+                  className="flex flex-col cursor-pointer group zoom-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => {
                     navigate(`/products/${related.id}`);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                 >
-                  {/* Fixed: single className, correct background */}
                   <div
                     className="w-full flex items-center justify-center overflow-hidden rounded-2xl bg-[#f5f5f7]"
                     style={{ height: "160px", padding: "16px" }}
@@ -293,8 +295,8 @@ const ProductDetail = () => {
                     </div>
                     <p className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">{related.name}</p>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-slate-900">{related.price}</span>
-                      <span className="text-sm text-slate-400 line-through">{related.oldPrice}</span>
+                      <span className="text-sm font-bold text-slate-900">${related.price}</span>
+                      <span className="text-sm text-slate-400 line-through">${related.oldPrice}</span>
                     </div>
                   </div>
                 </div>

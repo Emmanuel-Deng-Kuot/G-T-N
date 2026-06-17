@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { posts, recentPosts, popularPosts } from "../data/blogData";
+import useAnimations from "../hooks/useAnimations";
 
 const tabs = ["All", "tech", "Social", "Tips & Trick"];
 
 const BlogCard = ({ post, height = "220px", onRead }) => (
-  <div className="flex flex-col gap-3 cursor-pointer group" onClick={onRead}>
+  <div className="flex flex-col gap-3 cursor-pointer group zoom-in" onClick={onRead}>
     <div className="w-full rounded-2xl overflow-hidden" style={{ height }}>
       <img
         src={post.image}
@@ -22,7 +23,7 @@ const BlogCard = ({ post, height = "220px", onRead }) => (
         <span className="text-xs text-slate-400">{post.time}</span>
       </div>
       <h3 className="text-base lg:text-lg font-extrabold text-slate-900 leading-snug">{post.title}</h3>
-      <p className="text-xs text-slate-500  lg:text-xl lg:leading-relaxed">{post.excerpt}</p>
+      <p className="text-xs text-slate-500 lg:text-xl lg:leading-relaxed">{post.excerpt}</p>
       <div className="flex items-center justify-between mt-1">
         <span className="text-xs text-slate-400">{post.date}</span>
         <button className="text-xs font-bold text-indigo-700 hover:text-indigo-900 transition-colors">
@@ -34,7 +35,7 @@ const BlogCard = ({ post, height = "220px", onRead }) => (
 );
 
 const SectionHeader = ({ title }) => (
-  <div className="flex items-center justify-between mb-6 lg:mb-8">
+  <div className="flex items-center justify-between mb-6 lg:mb-8 zoom-in">
     <h2 className="text-2xl lg:text-4xl font-extrabold text-slate-900">{title}</h2>
     <button className="group flex items-center gap-2 lg:gap-3 bg-[#2D2B6B] hover:bg-indigo-900 text-white text-xs lg:text-sm font-semibold px-4 lg:px-7 py-2.5 lg:py-3.5 rounded-full transition-all duration-300 shadow-lg shadow-indigo-900/20 hover:-translate-y-px">
       More Review
@@ -50,6 +51,7 @@ const SectionHeader = ({ title }) => (
 const Blog = () => {
   const [activeTab, setActiveTab] = useState("All");
   const navigate = useNavigate();
+  const containerRef = useAnimations();
 
   const filtered =
     activeTab === "All"
@@ -60,13 +62,13 @@ const Blog = () => {
   const rest = filtered.filter((p) => p.id !== featured?.id);
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-white font-sans overflow-x-hidden">
       <Navbar />
 
       <section className="max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-10">
 
         {/* Tabs */}
-        <div className="flex items-center justify-start lg:justify-center gap-2 mb-8 lg:mb-10 overflow-x-auto pb-1 scrollbar-hide">
+        <div className="flex items-center justify-start lg:justify-center gap-2 mb-8 lg:mb-10 overflow-x-auto pb-1 scrollbar-hide zoom-in">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -87,7 +89,7 @@ const Blog = () => {
           <>
             {/* Mobile: stacked */}
             <div
-              className="flex flex-col lg:hidden gap-4 mb-10 cursor-pointer"
+              className="flex flex-col lg:hidden gap-4 mb-10 cursor-pointer zoom-in"
               onClick={() => navigate(`/blog/${featured.id}`)}
             >
               <div className="w-full rounded-2xl overflow-hidden" style={{ height: "220px" }}>
@@ -115,7 +117,7 @@ const Blog = () => {
             {/* Desktop: side by side */}
             <div className="hidden lg:flex gap-10 items-start mb-12">
               <div
-                className="w-125 shrink-0 rounded-2xl overflow-hidden cursor-pointer"
+                className="w-125 shrink-0 rounded-2xl overflow-hidden cursor-pointer zoom-in"
                 style={{ height: "300px" }}
                 onClick={() => navigate(`/blog/${featured.id}`)}
               >
@@ -125,7 +127,7 @@ const Blog = () => {
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="flex flex-col gap-3 flex-1 pt-2">
+              <div className="flex flex-col gap-3 flex-1 pt-2 zoom-in">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-amber-600">{featured.category}</span>
                   <span className="w-1 h-1 rounded-full bg-slate-300" />
@@ -146,7 +148,8 @@ const Blog = () => {
         )}
 
         {/* Divider */}
-        <div className="w-full h-px bg-slate-100 mb-8 lg:mb-12" />
+        <div className="w-full h-px bg-slate-100 mb-8 lg:mb-12 zoom-in" />
+
         {/* Small posts — mobile: horizontal card, desktop: 3-col grid */}
         <div className="mb-16 lg:mb-20">
 
@@ -155,7 +158,7 @@ const Blog = () => {
             {rest.map((post) => (
               <div
                 key={post.id}
-                className="flex gap-3 cursor-pointer group"
+                className="flex gap-3 cursor-pointer group zoom-in"
                 onClick={() => navigate(`/blog/${post.id}`)}
               >
                 <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0">
@@ -183,7 +186,7 @@ const Blog = () => {
             {rest.map((post) => (
               <div
                 key={post.id}
-                className="flex flex-col gap-3 cursor-pointer group"
+                className="flex flex-col gap-3 cursor-pointer group zoom-in"
                 onClick={() => navigate(`/blog/${post.id}`)}
               >
                 <div className="w-full rounded-2xl overflow-hidden" style={{ height: "200px" }}>
@@ -215,7 +218,7 @@ const Blog = () => {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px bg-slate-100 mb-8 lg:mb-12" />
+        <div className="w-full h-px bg-slate-100 mb-8 lg:mb-12 zoom-in" />
 
         {/* Recent section */}
         <div className="mb-16 lg:mb-20">
@@ -234,7 +237,7 @@ const Blog = () => {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px bg-slate-100 mb-8 lg:mb-12" />
+        <div className="w-full h-px bg-slate-100 mb-8 lg:mb-12 zoom-in" />
 
         {/* Popular section */}
         <div className="mb-10">

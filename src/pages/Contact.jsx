@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import useAnimations from "../hooks/useAnimations";
 
 const Contact = () => {
+  const containerRef = useAnimations();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -19,7 +21,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-white font-sans overflow-x-hidden">
       <Navbar />
 
       <section className="max-w-7xl mx-auto px-6 lg:px-10 pt-28 pb-20">

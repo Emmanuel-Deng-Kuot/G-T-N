@@ -3,10 +3,12 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 import { useCart } from "../context/useCart";
+import useAnimations from "../hooks/useAnimations";
 
 
 
 const Cart = () => {
+  const containerRef = useAnimations();
 
   const { cartItems, updateQuantity, toggleCheck, removeFromCart } = useCart();
 
@@ -44,22 +46,13 @@ const Cart = () => {
 
   return (
 
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-white font-sans overflow-x-hidden">
 
       <Navbar />
 
 
 
       <section className="max-w-7xl mx-auto px-6 lg:px-10 pt-28 pb-20">
-
-        <h1 className="text-3xl lg:text-5xl font-extrabold text-slate-900 mb-8 lg:mb-10">
-
-          Your Cart
-
-        </h1>
-
-
-
         {cartItems.length === 0 ? (
 
           <div className="flex flex-col items-center justify-center py-32 gap-4">
@@ -168,9 +161,9 @@ const Cart = () => {
 
                       <div className="flex items-center gap-2 mt-1">
 
-                        <span className="text-sm font-bold text-[#2D2B6B]">{item.cartPrice}</span>
+                        <span className="text-sm font-bold text-[#2D2B6B]">${item.cartPrice}</span>
 
-                        <span className="text-sm text-slate-400 line-through">{item.cartOldPrice}</span>
+                        <span className="text-sm text-slate-400 line-through">${item.cartOldPrice}</span>
 
                       </div>
 

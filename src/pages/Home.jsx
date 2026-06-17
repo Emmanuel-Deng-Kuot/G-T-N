@@ -1,40 +1,19 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import Navbar from "../components/Navbar";
 import HeroImage from "../components/HeroImage";
 import PlatformBadges from "../components/PlatformBadges";
 import BestProduct from "../components/BestProduct";
 import ProductGrid from "../components/ProductGrid";
 import Footer from "../components/Footer";
+import useAnimations from "../hooks/useAnimations";
 
 const Home = () => {
-  const heroTextRef = useRef(null);
-  const heroImageRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".hero-text-item", {
-        y: 32,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.16,
-        ease: "power3.out",
-      });
-
-      gsap.from(heroImageRef.current, {
-        x: 24,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.15,
-        ease: "power3.out",
-      });
-    }, heroTextRef);
-
-    return () => ctx.revert();
-  }, []);
+ const containerRef = useAnimations();
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div
+  ref={containerRef}
+  className="min-h-screen bg-white font-sans overflow-x-hidden"
+>
       <style>{`
         @keyframes floatY {
           0%, 100% { transform: translateY(0px); }
@@ -57,24 +36,20 @@ const Home = () => {
           <div className="flex flex-col lg:grid lg:grid-cols-2 items-center gap-8 lg:gap-10">
 
             {/* Left: Text */}
-            <div ref={heroTextRef} className="flex flex-col gap-5 lg:gap-6 text-center lg:text-left items-center lg:items-start w-full">
-              <h1
-                className="hero-text-item text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight text-slate-900 tracking-tight"
-              >
+           <div className="flex flex-col gap-5 lg:gap-6 text-center lg:text-left items-center lg:items-start w-full">
+              <h1 className="fade-left text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight text-slate-900 tracking-tight">
                 Find Your <span className="text-indigo-700">Gadget</span>
                 <br className="hidden sm:block" />
                 {" "}with worthy price in the market
               </h1>
 
-              <p
-                className="hero-text-item text-sm sm:text-base lg:text-xl text-slate-400 leading-relaxed max-w-sm sm:max-w-md lg:max-w-lg"
-              >
+              <p className="fade-left text-sm sm:text-base lg:text-xl text-slate-400 leading-relaxed max-w-sm sm:max-w-md lg:max-w-lg">
                 Technology continues to shape the way we live, work, and communicate.
                 From innovative gadgets to smart digital solutions, modern technology offers endless
                 possibilities for improving productivity and enhancing everyday experiences.
               </p>
 
-              <div className="hero-text-item">
+              <div className="zoom-in">
                 <button className="group flex items-center gap-3 bg-indigo-900 hover:bg-indigo-800 text-white text-sm font-semibold px-7 py-3.5 rounded-full transition-all duration-300 shadow-lg shadow-indigo-900/20 hover:shadow-indigo-900/30 hover:-translate-y-px">
                   Our Product
                   <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
@@ -85,26 +60,29 @@ const Home = () => {
                 </button>
               </div>
 
-              <div className="hero-text-item">
+              <div className="fade-up">
                 <PlatformBadges />
               </div>
             </div>
 
-            {/* Right: Hero image — below text on mobile, right side on desktop */}
-            <div
-              ref={heroImageRef}
-              className="flex justify-center lg:justify-end items-center w-full"
-            >
-              <HeroImage />
-            </div>
+            {/* Right: Hero image */}
+        <div className="fade-right flex justify-center lg:justify-end items-center w-full">
+          <HeroImage />
+        </div>
 
           </div>
         </div>
       </section>
 
-      <BestProduct />
-      <ProductGrid variant="home" />
-      <Footer />
+      <div className="fade-up">
+        <BestProduct />
+      </div>
+      <div className="fade-up">
+        <ProductGrid variant="home" />
+      </div>
+      <div className="fade-up">
+        <Footer />
+      </div>
     </div>
   );
 };

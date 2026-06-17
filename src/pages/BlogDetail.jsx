@@ -2,24 +2,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { posts, popularPosts, recentPosts } from "../data/blogData";
+import useAnimations from "../hooks/useAnimations";
 
 const BlogDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const containerRef = useAnimations();
 
   const allPosts = [...posts, ...popularPosts, ...recentPosts];
   const post = allPosts.find((p) => p.id === parseInt(id)) || allPosts[0];
   const related = allPosts.filter((p) => p.id !== post.id).slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-white font-sans overflow-x-hidden">
       <Navbar />
 
       {/* Hero image — full bleed on mobile, rounded on desktop */}
       <div className="w-full pt-16">
         <div className="max-w-7xl mx-auto lg:px-10 h-full">
           <div
-            className="w-full overflow-hidden lg:rounded-3xl"
+            className="w-full overflow-hidden lg:rounded-3xl zoom-in"
             style={{ height: "clamp(220px, 50vw, 480px)" }}
           >
             <img
@@ -40,15 +42,15 @@ const BlogDetail = () => {
           <div className="flex-1 flex flex-col gap-5 lg:gap-6">
 
             {/* Title */}
-            <h1 className="text-2xl lg:text-3xl font-extrabold text-slate-900 leading-tight">
+            <h1 className="text-2xl lg:text-3xl font-extrabold text-slate-900 leading-tight zoom-in">
               {post.title}
             </h1>
 
             {/* Date */}
-            <p className="text-xs lg:text-sm text-slate-400">{post.date}</p>
+            <p className="text-xs lg:text-sm text-slate-400 zoom-in">{post.date}</p>
 
             {/* Share */}
-            <div className="flex items-center gap-2 lg:gap-3">
+            <div className="flex items-center gap-2 lg:gap-3 zoom-in">
               <span className="text-xs lg:text-sm text-slate-500 font-medium">Share :</span>
               {[
                 { label: "Instagram", icon: "M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M6.5 6.5h11A1.5 1.5 0 0119 8v8a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 015 16V8a1.5 1.5 0 011.5-1.5z" },
@@ -68,7 +70,7 @@ const BlogDetail = () => {
             </div>
 
             {/* Body part 1 */}
-            <div className="flex flex-col gap-3 text-sm lg:text-xl text-slate-600 leading-relaxed">
+            <div className="flex flex-col gap-3 text-sm lg:text-xl text-slate-600 leading-relaxed zoom-in">
               <p>{post.excerpt}</p>
               <p>
                 Experience the perfect blend of quality and performance with our premium products.
@@ -89,7 +91,7 @@ const BlogDetail = () => {
             </div>
 
             {/* Inline image — uses post image */}
-            <div className="w-full h-55 lg:h-100 rounded-2xl overflow-hidden">
+            <div className="w-full h-55 lg:h-100 rounded-2xl overflow-hidden zoom-in">
               <img
                 src={post.image}
                 alt={post.title}
@@ -98,7 +100,7 @@ const BlogDetail = () => {
             </div>
 
             {/* Body part 2 */}
-            <div className="flex flex-col gap-3 text-sm lg:text-xl text-slate-600 leading-relaxed">
+            <div className="flex flex-col gap-3 text-sm lg:text-xl text-slate-600 leading-relaxed zoom-in">
               <p>
                 Discover the perfect combination of quality, performance, and style.
                 Our products are designed to exceed your expectations with every use.
@@ -122,7 +124,7 @@ const BlogDetail = () => {
             </div>
 
             {/* Tags */}
-            <div className="flex items-center gap-2 flex-wrap mt-1">
+            <div className="flex items-center gap-2 flex-wrap mt-1 zoom-in">
               <span className="text-xs lg:text-lg text-slate-500 font-medium">Tag :</span>
               {["tech", "Social", "Tips & Trick"].map((tag) => (
                 <span
@@ -136,7 +138,7 @@ const BlogDetail = () => {
 
             {/* Mobile: Popular posts — shown inline below article */}
             <div className="flex flex-col gap-4 mt-4 lg:hidden">
-              <button className="w-full bg-[#2D2B6B] text-white text-sm lg:text-2xl font-semibold py-3 rounded-full">
+              <button className="w-full bg-[#2D2B6B] text-white text-sm lg:text-2xl font-semibold py-3 rounded-full zoom-in">
                 Popular News
               </button>
 
@@ -144,7 +146,7 @@ const BlogDetail = () => {
                 {popularPosts.slice(0, 3).map((p) => (
                   <div
                     key={p.id}
-                    className="flex gap-3 cursor-pointer group"
+                    className="flex gap-3 cursor-pointer group zoom-in"
                     onClick={() => { navigate(`/blog/${p.id}`); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                   >
                     <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
@@ -172,14 +174,14 @@ const BlogDetail = () => {
 
           {/* Desktop sidebar only */}
           <div className="hidden lg:flex w-64 shrink-0 flex-col gap-6 sticky top-24">
-            <button className="w-full bg-[#2D2B6B] text-white text-sm lg:text-2xl font-semibold py-3 rounded-full">
+            <button className="w-full bg-[#2D2B6B] text-white text-sm lg:text-2xl font-semibold py-3 rounded-full zoom-in">
               Popular
             </button>
             <div className="flex flex-col gap-5">
               {popularPosts.slice(0, 4).map((p) => (
                 <div
                   key={p.id}
-                  className="flex flex-col gap-2 cursor-pointer group"
+                  className="flex flex-col gap-2 cursor-pointer group zoom-in"
                   onClick={() => { navigate(`/blog/${p.id}`); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 >
                   <div className="w-full rounded-xl overflow-hidden" style={{ height: "120px" }}>
@@ -211,16 +213,16 @@ const BlogDetail = () => {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px bg-slate-100 my-10 lg:my-16" />
+        <div className="w-full h-px bg-slate-100 my-10 lg:my-16 zoom-in" />
 
         {/* Related posts */}
         <div>
-          <h2 className="text-lg lg:text-2xl font-extrabold text-slate-900 mb-6 lg:mb-8">Related post</h2>
+          <h2 className="text-lg lg:text-2xl font-extrabold text-slate-900 mb-6 lg:mb-8 zoom-in">Related post</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-8">
             {related.slice(0, 3).map((p) => (
               <div
                 key={p.id}
-                className="flex flex-col gap-3 cursor-pointer group"
+                className="flex flex-col gap-3 cursor-pointer group zoom-in"
                 onClick={() => { navigate(`/blog/${p.id}`); window.scrollTo({ top: 0, behavior: "smooth" }); }}
               >
                 <div className="w-full h-40 lg:h-55 rounded-2xl overflow-hidden">
