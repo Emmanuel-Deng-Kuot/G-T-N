@@ -1,3 +1,4 @@
+import HeroPerson from "../assets/images/hero-person.png";
 const HeroImage = () => {
   return (
     <div className="relative flex h-85 w-full items-center justify-center sm:h-105 lg:h-145 lg:w-160">
@@ -13,11 +14,8 @@ const HeroImage = () => {
         <div className="absolute right-0 top-0 h-[clamp(60px,14vw,224px)] w-[clamp(60px,14vw,224px)] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.6)_0%,transparent_70%)] opacity-20" />
 
         {/* Hero person */}
-        <img
-          src="src/assets/images/hero-person.png"
-          alt="Person with headphones browsing gadgets"
-          className="absolute bottom-[180] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain"
-        />
+        <img src={HeroPerson} alt="person with headphones browsing gadgets" className="absolute bottom-[180] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain" />
+      
       </div>
 
       {/* Product card 1 - watch */}
