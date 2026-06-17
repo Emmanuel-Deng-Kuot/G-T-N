@@ -1,4 +1,6 @@
 import HeroPerson from "../assets/images/hero-person.png";
+import watch from "../assets/images/watch.png";
+import headphones from "../assets/images/headphones.png";
 const HeroImage = () => {
   return (
     <div className="relative flex h-85 w-full items-center justify-center sm:h-105 lg:h-145 lg:w-160">
@@ -14,14 +16,18 @@ const HeroImage = () => {
         <div className="absolute right-0 top-0 h-[clamp(60px,14vw,224px)] w-[clamp(60px,14vw,224px)] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.6)_0%,transparent_70%)] opacity-20" />
 
         {/* Hero person */}
-        <img src={HeroPerson} alt="person with headphones browsing gadgets" className="absolute bottom-[180] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain" />
+        <img 
+          src={HeroPerson} 
+          alt="person with headphones browsing gadgets" 
+          className="absolute bottom-[-180px] left-1/2 z-20 h-[clamp(70px,74vw,730px)] -translate-x-1/2 object-contain" 
+        />
       
       </div>
 
       {/* Product card 1 - watch */}
       <div className="absolute left-[clamp(4px,2vw,20px)] top-[46%] z-20 flex h-[clamp(50px,10vw,90px)] w-[clamp(50px,10vw,90px)] items-center justify-center rounded-[clamp(10px,2vw,20px)] border border-white/25 bg-white/15 shadow-[0_8px_32px_rgba(80,88,200,0.15)] backdrop-blur-2xl">
         <img
-          src="src/assets/images/watch.png"
+          src={watch}
           alt="Watch"
           className="h-[clamp(30px,6vw,60px)] w-[clamp(30px,6vw,60px)] object-contain"
         />
@@ -30,7 +36,7 @@ const HeroImage = () => {
       {/* Product card 2 - headphones */}
       <div className="absolute right-[clamp(4px,2vw,20px)] top-[12%] z-20 flex h-[clamp(50px,10vw,90px)] w-[clamp(50px,10vw,90px)] items-center justify-center rounded-[clamp(10px,2vw,20px)] border border-white/25 bg-white/15 shadow-[0_8px_32px_rgba(80,88,200,0.15)] backdrop-blur-2xl">
         <img
-          src="src/assets/images/headphones.png"
+          src={headphones}
           alt="Headphones"
           className="h-[clamp(30px,6vw,60px)] w-[clamp(30px,6vw,60px)] object-contain"
         />
