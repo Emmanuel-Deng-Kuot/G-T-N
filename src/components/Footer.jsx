@@ -86,7 +86,7 @@ const Footer = () => {
               <h4 className="text-white font-bold lg:text-3xl text-sm mb-1 zoom-in">
                 Mangstore
               </h4>
-              {["Abaout Mangstore", "Home", "Product", "Blog"].map((item, index) => (
+              {["About Mangstore", "Home", "Product", "Blog"].map((item, index) => (
                 <a
                   key={item}
                   href="#"
