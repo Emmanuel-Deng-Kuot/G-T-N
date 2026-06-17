@@ -103,7 +103,7 @@ const BestProduct = () => {
                 style={{ background: "#f8f8fa", padding: "24px" }}
               >
                 <img
-                  src="src/assets/images/keyboard.png"
+                  src={keyboardImage}
                   alt="Keyboard"
                   className="object-contain w-full h-full"
                 />
@@ -144,7 +144,7 @@ const BestProduct = () => {
                 style={{ background: "#f8f8fa", padding: "24px" }}
               >
                 <img
-                  src="src/assets/images/mouse.png"
+                  src={mouseImage}
                   alt="Mouse"
                   className="object-contain w-full h-full"
                 />
