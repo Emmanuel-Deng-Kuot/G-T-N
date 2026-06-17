@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { posts, recentPosts, popularPosts } from "../data/blogData";
+import { posts, recentPosts, popularPosts } from "../data/BlogData";
 import useAnimations from "../hooks/useAnimations";
 
 const tabs = ["All", "tech", "Social", "Tips & Trick"];

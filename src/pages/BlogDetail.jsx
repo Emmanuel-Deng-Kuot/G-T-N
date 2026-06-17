@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { posts, popularPosts, recentPosts } from "../data/blogData";
+import { posts, popularPosts, recentPosts } from "../data/BlogData";
 import useAnimations from "../hooks/useAnimations";
 
 const BlogDetail = () => {
