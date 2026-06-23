@@ -1,10 +1,27 @@
 import Navbar from "../components/Navbar";
 import HeroImage from "../components/HeroImage";
-import PlatformBadges from "../components/PlatformBadges";
 import BestProduct from "../components/BestProduct";
 import ProductGrid from "../components/ProductGrid";
 import Footer from "../components/Footer";
 import useAnimations from "../hooks/useAnimations";
+import tokopediaLogo from "../assets/images/tokopedia-logo.png";
+import shopeeLogo from "../assets/images/shopee-logo.png";
+import whatsappLogo from "../assets/images/whatsapp-logo.png";
+
+const platforms = [
+  {
+    name: "Tokopedia",
+    image: tokopediaLogo,
+  },
+  {
+    name: "Shopee",
+    image: shopeeLogo,
+  },
+  {
+    name: "Whatsapp",
+    image: whatsappLogo,
+  },
+];
 
 const Home = () => {
  const containerRef = useAnimations();
@@ -24,7 +41,7 @@ const Home = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="min-h-screen pt-16 flex items-center relative overflow-hidden">
+      <section className="relative flex min-h-screen items-center overflow-x-hidden pt-20 pb-20 lg:pt-24 lg:pb-28">
 
         {/* Decorative circles — desktop only */}
         <div className="hidden lg:block absolute right-[20%] top-1/2 -translate-y-1/2 w-130 h-130 rounded-full border border-slate-100 opacity-60 pointer-events-none" />
@@ -60,9 +77,29 @@ const Home = () => {
                 </button>
               </div>
 
-              <div className="fade-up">
-                <PlatformBadges />
+              <div className="zoom-in flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                <span className="text-xs font-bold text-slate-400">Or find us in :</span>
+                <div className="flex items-center gap-2">
+                  {platforms.map((platform) => (
+                    <a
+                      key={platform.name}
+                      href="#"
+                      aria-label={platform.name}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 lg:h-auto lg:w-auto lg:gap-1.5 lg:px-3 lg:py-1.5"
+                    >
+                      <img
+                        src={platform.image}
+                        alt={platform.name}
+                        className="h-5 w-5 object-contain"
+                      />
+                      <span className="hidden text-xs font-medium text-slate-600 lg:inline">
+                        {platform.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
+
             </div>
 
             {/* Right: Hero image */}
@@ -74,15 +111,9 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="fade-up">
-        <BestProduct />
-      </div>
-      <div className="fade-up">
-        <ProductGrid variant="home" />
-      </div>
-      <div className="fade-up">
-        <Footer />
-      </div>
+      <BestProduct />
+      <ProductGrid variant="home" />
+      <Footer />
     </div>
   );
 };

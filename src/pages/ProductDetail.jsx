@@ -3,23 +3,61 @@ import { useCart } from "../context/useCart";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { products } from "../data/productsData";
+import { useProduct } from "../hooks/useProduct";
+import { useProducts } from "../hooks/useProducts";
 import useAnimations from "../hooks/useAnimations";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { product, loading, error } = useProduct(id);
+  const { products: allProducts } = useProducts();
   const containerRef = useAnimations();
 
-  const product = products.find((p) => p.id === parseInt(id));
+  const [selection, setSelection] = useState({
+    productId: id,
+    image: 0,
+    color: 0,
+    variant: 0,
+    quantity: 1,
+  });
 
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(0);
-  const [selectedVariant, setSelectedVariant] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const currentSelection =
+    selection.productId === id
+      ? selection
+      : { productId: id, image: 0, color: 0, variant: 0, quantity: 1 };
 
-  if (!product) return (
+  const selectedImage = currentSelection.image;
+  const selectedColor = currentSelection.color;
+  const selectedVariant = currentSelection.variant;
+  const quantity = currentSelection.quantity;
+
+  const colorFilters = {
+    0: 'none',
+    1: 'sepia(1) hue-rotate(180deg) saturate(0.5)',
+    2: 'grayscale(0.5) brightness(1.2)',
+  };
+
+  const currentFilter = colorFilters[selectedColor] || 'none';
+  const updateSelection = (patch) => {
+    setSelection((current) => ({
+      productId: id,
+      image: current.productId === id ? current.image : 0,
+      color: current.productId === id ? current.color : 0,
+      variant: current.productId === id ? current.variant : 0,
+      quantity: current.productId === id ? current.quantity : 1,
+      ...patch,
+    }));
+  };
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-700 rounded-full animate-spin" />
+    </div>
+  );
+
+  if (error || !product) return (
     <div className="min-h-screen flex items-center justify-center">
       <p className="text-slate-400">Product not found.</p>
     </div>
@@ -44,6 +82,7 @@ const ProductDetail = () => {
                 src={product.images[selectedImage]}
                 alt={product.alt}
                 className="object-contain w-full h-full transition-all duration-300"
+                style={{ filter: currentFilter }}
               />
             </div>
 
@@ -52,7 +91,7 @@ const ProductDetail = () => {
               {product.images.map((img, i) => (
                 <button
                   key={i}
-                  onClick={() => setSelectedImage(i)}
+                  onClick={() => updateSelection({ image: i })}
                   className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all duration-200 zoom-in ${
                     selectedImage === i
                       ? "border-2 border-indigo-900"
@@ -60,7 +99,12 @@ const ProductDetail = () => {
                   }`}
                   style={{ background: "#f5f5f7", padding: "8px" }}
                 >
-                  <img src={img} alt={`thumb-${i}`} className="object-contain w-full h-full" />
+                  <img 
+                    src={img} 
+                    alt={`thumb-${i}`} 
+                    className="object-contain w-full h-full"
+                    style={{ filter: currentFilter }}
+                  />
                 </button>
               ))}
             </div>
@@ -88,7 +132,7 @@ const ProductDetail = () => {
                 {product.colors.map((color, i) => (
                   <button
                     key={i}
-                    onClick={() => setSelectedColor(i)}
+                    onClick={() => updateSelection({ color: i })}
                     className={`px-4 py-2 rounded-full text-sm transition-all duration-200 ${
                       selectedColor === i
                         ? "bg-indigo-100 border-2 border-indigo-300 text-indigo-800 font-semibold"
@@ -108,7 +152,7 @@ const ProductDetail = () => {
                 {product.variants.map((variant, i) => (
                   <button
                     key={i}
-                    onClick={() => setSelectedVariant(i)}
+                    onClick={() => updateSelection({ variant: i })}
                     className={`px-4 py-2 rounded-full text-sm transition-all duration-200 ${
                       selectedVariant === i
                         ? "bg-indigo-100 border-2 border-indigo-300 text-indigo-800 font-semibold"
@@ -126,7 +170,7 @@ const ProductDetail = () => {
 
               <div className="flex items-center gap-3 border border-slate-300 rounded-full px-4 py-2.5 w-fit">
                 <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  onClick={() => updateSelection({ quantity: Math.max(1, quantity - 1) })}
                   className="w-5 h-5 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +179,7 @@ const ProductDetail = () => {
                 </button>
                 <span className="text-sm font-semibold text-slate-900 w-4 text-center">{quantity}</span>
                 <button
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => updateSelection({ quantity: quantity + 1 })}
                   className="w-5 h-5 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,7 +306,7 @@ const ProductDetail = () => {
           <h2 className="text-2xl font-semibold text-slate-900 text-center mb-10 zoom-in">Related product</h2>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
-            {products
+            {allProducts
               .filter((p) => p.id !== product.id)
               .slice(0, 4)
               .map((related, index) => (

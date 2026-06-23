@@ -1,30 +1,20 @@
-import keyboardImage from "../assets/images/keyboard.png";
-import mouseImage from "../assets/images/mouse.png";
-
-const products = [
-  {
-    id: 1,
-    category: "Keyboard and mouse",
-    name: "Apollo 11 with gatheron yellow switch pre-lubed",
-    price: "$500",
-    oldPrice: "$800",
-    discount: "20% off",
-    image: keyboardImage,
-    alt: "Apollo 11 Keyboard",
-  },
-  {
-    id: 2,
-    category: "Keyboard and mouse",
-    name: "Apollo 11 with gatheron yellow switch pre-lubed",
-    price: "$500",
-    oldPrice: "$800",
-    discount: "20% off",
-    image: mouseImage,
-    alt: "Logitech Mouse",
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { useProducts } from "../hooks/useProducts";
 
 const BestProduct = () => {
+  const { products, loading } = useProducts();
+  const navigate = useNavigate();
+
+  const bestProducts = products.slice(0, 2);
+
+  if (loading) return (
+    <section className="relative w-full overflow-hidden py-20" style={{ background: "#eae9f5" }}>
+      <div className="flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-700 rounded-full animate-spin" />
+      </div>
+    </section>
+  );
+
   return (
     <section
       className="relative w-full overflow-hidden py-20"
@@ -64,7 +54,10 @@ const BestProduct = () => {
                 decisions that best suit their personal and professional needs.
             </p>
             <div>
-              <button className="group flex items-center gap-3 bg-indigo-900 hover:bg-indigo-800 text-white text-sm font-semibold px-7 py-3.5 rounded-full transition-all duration-300 shadow-lg shadow-indigo-900/20 hover:shadow-indigo-900/30 hover:-translate-y-px">
+              <button 
+                onClick={() => navigate("/products")}
+                className="group flex items-center gap-3 bg-indigo-900 hover:bg-indigo-800 text-white text-sm font-semibold px-7 py-3.5 rounded-full transition-all duration-300 shadow-lg shadow-indigo-900/20 hover:shadow-indigo-900/30 hover:-translate-y-px"
+              >
                 Look Product
                 <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
                   <svg
@@ -88,86 +81,49 @@ const BestProduct = () => {
           {/* Right: Product cards */}
           <div className="flex flex-row lg:flex-row items-center lg:items-end gap-4 flex-1 w-full overflow-x-auto">
 
-            {/* Card 1 — left, sits lower */}
-            <div
-              className="flex flex-col bg-white rounded-3xl overflow-hidden
-                        min-w-70 lg:flex-1
-                        cursor-pointer hover:-translate-y-1 transition-transform duration-300"
-              style={{
-                boxShadow: "0 4px 32px rgba(100,90,180,0.08)",
-                height: "400px",
-              }}
-            >
+            {bestProducts.map((product, index) => (
               <div
-                className="w-full flex items-center justify-center flex-1"
-                style={{ background: "#f8f8fa", padding: "24px" }}
+                key={product.id}
+                onClick={() => navigate(`/products/${product.id}`)}
+                className={`flex flex-col bg-white rounded-3xl overflow-hidden
+                          min-w-70 lg:flex-1
+                          cursor-pointer hover:-translate-y-1 transition-transform duration-300
+                          ${index === 1 ? 'mb-0 lg:mb-12' : ''}`}
+                style={{
+                  boxShadow: "0 4px 32px rgba(100,90,180,0.08)",
+                  height: "400px",
+                }}
               >
-                <img
-                  src={keyboardImage}
-                  alt="Keyboard"
-                  className="object-contain w-full h-full"
-                />
-              </div>
-              <div className="p-5 flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-400">Keyboard</span>
-                  <span
-                    className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                    style={{ background: "#FEF0E0", color: "#D97706" }}
-                  >
-                    {products[0].discount}
-                  </span>
+                <div
+                  className="w-full flex items-center justify-center flex-1"
+                  style={{ background: "#f8f8fa", padding: "24px" }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.alt}
+                    className="object-contain w-full h-full"
+                  />
                 </div>
-                <p className="text-sm font-bold text-slate-900 leading-snug">
-                  {products[0].name}
-                </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm font-bold text-slate-900">{products[0].price}</span>
-                  <span className="text-sm text-slate-400 line-through">{products[0].oldPrice}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2 — right, same size but pushed up */}
-            <div
-              className="flex flex-col bg-white rounded-3xl overflow-hidden
-                        min-w-70 lg:flex-1
-                        cursor-pointer hover:-translate-y-1 transition-transform duration-300
-                        mb-0 lg:mb-12"
-              style={{
-                boxShadow: "0 4px 32px rgba(100,90,180,0.08)",
-                height: "400px",
-              }}
-            >
-              <div
-                className="w-full flex items-center justify-center flex-1"
-                style={{ background: "#f8f8fa", padding: "24px" }}
-              >
-                <img
-                  src={mouseImage}
-                  alt="Mouse"
-                  className="object-contain w-full h-full"
-                />
-              </div>
-              <div className="p-5 flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-400">{products[1].category}</span>
-                  <span
-                    className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                    style={{ background: "#FEF0E0", color: "#D97706" }}
-                  >
-                    {products[1].discount}
-                  </span>
-                </div>
-                <p className="text-sm font-bold text-slate-900 leading-snug">
-                  {products[1].name}
-                </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm font-bold text-slate-900">{products[1].price}</span>
-                  <span className="text-sm text-slate-400 line-through">{products[1].oldPrice}</span>
+                <div className="p-5 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-400">{product.category}</span>
+                    <span
+                      className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                      style={{ background: "#FEF0E0", color: "#D97706" }}
+                    >
+                      {product.discount}
+                    </span>
+                  </div>
+                  <p className="text-sm font-bold text-slate-900 leading-snug">
+                    {product.name}
+                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-sm font-bold text-slate-900">{product.price}</span>
+                    <span className="text-sm text-slate-400 line-through">{product.oldPrice}</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
 
           </div>
         </div>

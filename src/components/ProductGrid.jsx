@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { products } from "../data/productsData";
+import { useProducts } from "../hooks/useProducts";
 
 const parsePrice = (priceStr) => {
   if (!priceStr) return 0;
@@ -46,17 +46,11 @@ const ProductCard = ({ product, variant, onNavigate }) => (
   </div>
 );
 
-const ITEMS_PER_PAGE = 12;
-
-const ALL_CATEGORY = "All";
-const categories = [ALL_CATEGORY, ...new Set(products.map((product) => product.category))];
-const sortOptions = ["Newest first", "Price: Low to High", "Price: High to Low"];
-const priceOptions = ["All", "$0 - $100", "$100 - $200", "$200 - $400", "$400+"];
-
 const ProductGrid = ({ variant = "page" }) => {
+  const { products, loading, error } = useProducts();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [category, setCategory] = useState(ALL_CATEGORY);
+  const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("Newest first");
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -64,6 +58,12 @@ const ProductGrid = ({ variant = "page" }) => {
   const [showMobileFilter, setShowMobileFilter] = useState(false);
   const [search, setSearch] = useState("");
   const [priceRange, setPriceRange] = useState("All");
+
+  const ITEMS_PER_PAGE = 12;
+  const ALL_CATEGORY = "All";
+  const categories = [ALL_CATEGORY, ...new Set(products.map((product) => product.category))];
+  const sortOptions = ["Newest first", "Price: Low to High", "Price: High to Low"];
+  const priceOptions = ["All", "$0 - $100", "$100 - $200", "$200 - $400", "$400+"];
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
@@ -81,7 +81,7 @@ const ProductGrid = ({ variant = "page" }) => {
       })();
       return matchCategory && matchSearch && matchPrice;
     });
-  }, [category, search, priceRange]);
+  }, [category, search, priceRange, products]);
 
   const sortedProducts = useMemo(() => {
     const sorted = [...filtered];
@@ -97,6 +97,18 @@ const ProductGrid = ({ variant = "page" }) => {
   const paginated = useMemo(() => {
     return sortedProducts.slice((safePage - 1) * ITEMS_PER_PAGE, safePage * ITEMS_PER_PAGE);
   }, [sortedProducts, safePage]);
+
+  if (loading) return (
+    <div className="flex items-center justify-center py-32">
+      <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-700 rounded-full animate-spin" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex items-center justify-center py-32">
+      <p className="text-slate-400 text-sm">Failed to load products. Check your connection.</p>
+    </div>
+  );
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);

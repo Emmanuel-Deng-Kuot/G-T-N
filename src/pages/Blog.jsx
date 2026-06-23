@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { posts, recentPosts, popularPosts } from "../data/BlogData";
+import { usePosts } from "../hooks/usePosts";
 import useAnimations from "../hooks/useAnimations";
 
 const tabs = ["All", "tech", "Social", "Tips & Trick"];
@@ -49,9 +49,22 @@ const SectionHeader = ({ title }) => (
 );
 
 const Blog = () => {
+  const { posts, recentPosts, popularPosts, loading, error } = usePosts();
   const [activeTab, setActiveTab] = useState("All");
   const navigate = useNavigate();
   const containerRef = useAnimations();
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-700 rounded-full animate-spin" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <p className="text-slate-400 text-sm">Failed to load posts.</p>
+    </div>
+  );
 
   const filtered =
     activeTab === "All"

@@ -1,4 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleNav = (path) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer
       className="w-full py-16 px-6 lg:px-10"
@@ -86,16 +95,30 @@ const Footer = () => {
               <h4 className="text-white font-bold lg:text-3xl text-sm mb-1 zoom-in">
                 Mangstore
               </h4>
-              {["About Mangstore", "Home", "Product", "Blog"].map((item, index) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-sm text-indigo-200/60 lg:text-lg hover:text-white transition-colors duration-200 zoom-in"
-                  style={{ transitionDelay: `${index * 50}ms` }}
-                >
-                  {item}
-                </a>
-              ))}
+              <button
+                onClick={() => handleNav("/")}
+                className="text-sm text-indigo-200/60 lg:text-lg hover:text-white transition-colors duration-200 zoom-in text-left"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => handleNav("/products")}
+                className="text-sm text-indigo-200/60 lg:text-lg hover:text-white transition-colors duration-200 zoom-in text-left"
+              >
+                Product
+              </button>
+              <button
+                onClick={() => handleNav("/blog")}
+                className="text-sm text-indigo-200/60 lg:text-lg hover:text-white transition-colors duration-200 zoom-in text-left"
+              >
+                Blog
+              </button>
+              <a
+                href="#"
+                className="text-sm text-indigo-200/60 lg:text-lg hover:text-white transition-colors duration-200 zoom-in"
+              >
+                About Mangstore
+              </a>
             </div>
 
             {/* Buy links */}

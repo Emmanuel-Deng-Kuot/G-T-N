@@ -1,17 +1,30 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { posts, popularPosts, recentPosts } from "../data/BlogData";
+import { usePosts } from "../hooks/usePosts";
 import useAnimations from "../hooks/useAnimations";
 
 const BlogDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { posts, popularPosts, recentPosts, loading } = usePosts();
   const containerRef = useAnimations();
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-700 rounded-full animate-spin" />
+    </div>
+  );
 
   const allPosts = [...posts, ...popularPosts, ...recentPosts];
   const post = allPosts.find((p) => p.id === parseInt(id)) || allPosts[0];
-  const related = allPosts.filter((p) => p.id !== post.id).slice(0, 4);
+  const related = allPosts.filter((p) => p.id !== post?.id).slice(0, 4);
+
+  if (!post) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <p className="text-slate-400">Post not found.</p>
+    </div>
+  );
 
   return (
     <div ref={containerRef} className="min-h-screen bg-white font-sans overflow-x-hidden">

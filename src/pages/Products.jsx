@@ -2,9 +2,12 @@ import Navbar from "../components/Navbar";
 import ProductGrid from "../components/ProductGrid";
 import Footer from "../components/Footer";
 import useAnimations from "../hooks/useAnimations";
+import { useLocation } from "react-router-dom";
 
 const Products = () => {
   const containerRef = useAnimations();
+  const location = useLocation();
+  const initialSearch = new URLSearchParams(location.search).get("search") || "";
 
   return (
     <div ref={containerRef} className="min-h-screen bg-white font-sans overflow-x-hidden">
@@ -65,7 +68,7 @@ const Products = () => {
         </div>
       </section>
 
-      <ProductGrid variant="page" />
+      <ProductGrid key={location.search} variant="page" initialSearch={initialSearch} />
       <Footer />
     </div>
   );
